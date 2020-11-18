@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import VideoInput from './components/VideoInput';
+import ConfigureGif from './components/ConfigureGif';
 // starting point for working with ffmpeg library
 import { createFFmpeg, fetchFile} from '@ffmpeg/ffmpeg';
 // log is set true to see what is happening in background 
@@ -10,7 +11,10 @@ function App() {
   const [ready, setReady]  = useState(false);
   const [video, setVideo] = useState();
   const [gif, setGif] = useState();
+  const [gifLength, setGifLength] = useState('');
+  const [startingTime, setStartingTime] = useState('');
 
+  const l = 'disabled';
   const load = async () => {
     await ffmpeg.load();
     setReady(true);
@@ -27,7 +31,7 @@ function App() {
 
     //ffmpeg command
     // i for input t for lenght ss for starting point f for format 
-    await ffmpeg.run("-i", 'test.mp4', '-t', '2.5', '-ss', '2.0', '-f', 'gif', 'out.gif')
+    await ffmpeg.run("-i", 'test.mp4', '-t', gifLength, '-ss', startingTime, '-f', 'gif', 'out.gif')
 
     // Read the Result
 
@@ -41,19 +45,30 @@ function App() {
 
 
   return ready ? (
-    <div className="App">
+    <div className="container-fluid">
+      <header className = "jumbotron jumbotron-fluid">
+        <h1 className = "display-1 text-center">GIFIPHY</h1>
+        <img src = 'https://static.motionelements.com/img/video-converter/convert-video-to-gif-images.png'/>
+      </header>
+
+      <div className = "input-field text-center">
+      <VideoInput setVideo = {setVideo} />
       {video && <video 
                     controls
-                    width = "250"
+                    width = "50%"
                     src = {URL.createObjectURL(video)} ></video>}
-      <VideoInput setVideo = {setVideo} />
-      <h3>Result</h3>
-      <button onClick = {convertToGif}>Convert</button>
-      {gif && <img src = {gif} width = "250"/>} 
+      </div>
       
+      <div className = "output-field text-center">
+        {video && <ConfigureGif setGifLength = {setGifLength} setStartingTime = {setStartingTime}/>}
+        {video && <button onClick = {convertToGif} type="button" class="btn btn-lg btn-primary">Convert</button>}
+        {gif && <h3 className = "display-3 text-center"><br/>Result</h3>}
+       
+        {gif && <img src = {gif} className = "img-fluid"/>} 
+      </div>
     </div>
   ):
-  (<h1>Loading</h1>)
+  (<h1 className = "display-1 text-center">Loading..........</h1>)
 }
 
 export default App;
