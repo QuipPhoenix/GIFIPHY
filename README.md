@@ -1,7 +1,12 @@
 ## **GIFIPHY** 
 Using Web Assembly to build an app that converts video files to GIF (using FFmpeg), entirely from a frontend React JavaScript application.
 
+# How it Works:
+I have downloaded web assembly binaries for ffmpeg directly into the react app allowing me to combine the C programming language to javascript and offload the video editing works to end user hardware. I have generated a new react app using snowpack. 
 
+Inside the app I have installed the package **"npm install @ffmpeg/ffmpeg @ffmpeg/core"**
+
+We can upload the video from our desktop and select the length of the gif and starting time and converted the video file into a gif file.
 
 > ✨ Bootstrapped with Create Snowpack App (CSA).
 
