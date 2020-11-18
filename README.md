@@ -1,4 +1,7 @@
-# New Project
+## **GIFIPHY** 
+Using Web Assembly to build an app that converts video files to GIF (using FFmpeg), entirely from a frontend React JavaScript application.
+
+
 
 > ✨ Bootstrapped with Create Snowpack App (CSA).
 
